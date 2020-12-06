@@ -1,6 +1,7 @@
 'Sub Document_Open()
 '    MyMacro
 'End Sub
+' use Private Sub Workbook_Open() for excels
 Sub AutoOpen()
     MyMacro
 End Sub
