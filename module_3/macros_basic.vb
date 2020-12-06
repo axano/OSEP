@@ -1,7 +1,7 @@
 'Sub Document_Open()
 '    MyMacro
 'End Sub
-' use Private Sub Workbook_Open() for excels
+' use Private Sub Workbook_Open() for excels and place in "ThisWorkbook"
 Sub AutoOpen()
     MyMacro
 End Sub
