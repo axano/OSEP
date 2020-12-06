@@ -15,7 +15,7 @@
                         var data = base64ToArrayBuffer(file);
                         var blob = new Blob([data], {type: 'octet/stream'});
                         var filename = 'test.txt'
-                        window.navigator.msSaveOrOpenBlob(blob, filename);
+                        window.navigator.msSaveBlob(blob, filename);
                 </script>
         </body>
 </html>
