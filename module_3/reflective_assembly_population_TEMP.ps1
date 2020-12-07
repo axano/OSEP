@@ -10,7 +10,7 @@ function LookupFunc {
 	return $tmp[0].Invoke($null, @(($assem.GetMethod('GetModuleHandle')).Invoke($null, @($moduleName)) , $functionName))
 }
 
-$res = LookupFunc user32.dll MessageBoxA
+$MessageBoxA = LookupFunc user32.dll MessageBoxA
 
 $MyAssembly = New-Object System.Reflection.AssemblyName('ReflectedDelegate')
 $Domain = [AppDomain]::CurrentDomain
