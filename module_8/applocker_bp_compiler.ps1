@@ -4,7 +4,10 @@ $SerializeInputToWrapper = [Microsoft.Workflow.Compiler.CompilerWrapper].GetMeth
 Add-Type -Path 'C:\Windows\Microsoft.NET\Framework64\v4.0.30319\System.Workflow.ComponentModel.dll'
 $compilerparam = New-Object -TypeName Workflow.ComponentModel.Compiler.WorkflowCompilerParameters
 $compilerparam.GenerateInMemory = $True
-$pathvar = "test.txt"
+# file containing code
+$pathvar = "test.txt" 
 $output = "C:\Tools\test.xml"
 $tmp = $SerializeInputToWrapper.Invoke($null, @([Workflow.ComponentModel.Compiler.WorkflowCompilerParameters] $compilerparam, [String[]] @(,$pathvar)))
 Move-Item $tmp $output
+
+# run with : C:\Windows\Microsoft.Net\Framework64\v4.0.30319\Microsoft.Workflow.Compiler.exe test.xml results.xml
