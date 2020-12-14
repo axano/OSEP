@@ -1,6 +1,6 @@
 # Create shadowcopy
 ```
-wmic shadowcopy all create Volume='C:\'
+wmic shadowcopy call create Volume='C:\'
 vssadmin list shadows
 ```
 # Copy files
