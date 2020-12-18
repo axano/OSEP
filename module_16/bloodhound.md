@@ -10,5 +10,5 @@ sudo bloodhound
 login with neo4j:1234
 
 
-bloodhound-python -u offsec@corp1.com -d corp1.com  --collectionmethod Default
+bloodhound-python -u offsec@prod.corp1.com -d prod.corp1.com  --collectionmethod Default -gc cdc01.prod.corp1.com -ns 192.168.71.70
 ```
