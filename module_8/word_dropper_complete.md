@@ -53,6 +53,8 @@ base64 util.exe > file.txt
 Place the powershell script from section Powershell on the server with the name shell.ps1
 
 # Applocker bypass exe
+https://morgantechspace.com/2015/03/the-type-or-namespace-name-automation-does-not-exist-in-the-namespace-system-management.html
+pdf page 284
 The executable must contain the following code:
 ```
 using System;
